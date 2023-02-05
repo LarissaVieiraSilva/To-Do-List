@@ -5,7 +5,7 @@ const todoRoute = require("./routes/todo")
 
 app.use(express.json())
 
-app.use('/todo', todoRoute)
+app.use("/todo", todoRoute)
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)

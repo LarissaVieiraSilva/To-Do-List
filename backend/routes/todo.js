@@ -1,9 +1,17 @@
 const express = require('express')
 const router = express.Router()
 const db = require("../services/db")
+const { ObjectId } = require("mongodb")
 
 db.connectToDB((err) => {
     if (err) console.log(err) 
+
+    const checkbody = (req, res,next) => {
+        if ("_id" in req.body) {
+            req.body._id = ObjectId(req.body._id)
+        }
+        next()
+    }
 
     router.get("/list", async (req, res) => {
         const results = await db.findDocuments()
@@ -15,12 +23,14 @@ db.connectToDB((err) => {
         res.send(results)
     });
 
-router.patch("/update", (req, res) => {
-    res.send()
+router.patch("/update", checkbody, async (req, res) => {
+    const results = await db.updateDocument(req.body)
+    res.send(results)
 });
 
-router.delete("/delete", (req, res) => {
-    res.send()
+router.delete("/delete", checkbody, async (req, res) => {
+    const results = await db.removeDocument(req.body)
+    res.send(results)
 });
 
 })
