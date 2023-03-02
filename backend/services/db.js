@@ -42,7 +42,7 @@ const insertDocuments = async (document) => {
         const results = await collection.insertOne(document);
         return results
     } catch (error) {
-        throw new Error(error)
+        throw new error(error)
     }
 };
 
@@ -54,7 +54,7 @@ const updateDocument = async (document) => {
         const results = await collection.updateOne({ _id: document._id }, { $set: document });
         return results
     } catch (error) {
-        throw new Error(error)
+        throw new error(error)
     }
 };
 
@@ -65,7 +65,7 @@ const removeDocument = async (document) => {
         const results = await collection.deleteOne({ _id: document._id });
         return results
     } catch (error) {
-        throw new Error(error)
+        throw new error(error)
     }
 };
 
